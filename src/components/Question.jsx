@@ -1,7 +1,29 @@
+import { useState } from "react";
 import Answers from "./Answers";
 import QuestionTimer from "./QuestionTimer";
+import QUESTIONS from "../questions";
 
 export default function Question({ questionText, answers, onSelectAnswer, selectedAnswer, answerState, onSkipAnswer }) {
+
+    const [answer, setAnswer] = useState({
+        selectedAnswer: '',
+        isCorrect: null,
+    });
+
+    function handleSelectAnswer(answer) {
+        setAnswer({
+            selectedAnswer: answer,
+            isCorrect: null,
+        })
+
+        setTimeout(() => {
+            setAnswer({
+                selectedAnswer: answer,
+                isCorrect: true,
+            })
+        }, 1000);
+    }
+
     return (
         <div id="question">
             <QuestionTimer
@@ -14,7 +36,7 @@ export default function Question({ questionText, answers, onSelectAnswer, select
                 answers={answers}
                 selectedAnswer={selectedAnswer}
                 answerState={answerState}
-                onSelect={onSelectAnswer}
+                onSelect={handleSelectAnswer}
             />
         </div>
     );
